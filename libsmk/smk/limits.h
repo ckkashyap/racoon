@@ -1,0 +1,13 @@
+#ifndef _LIBKERNEL_LIMITS_H
+#define _LIBKERNEL_LIMITS_H
+
+
+#define SMK_NAME_LENGTH			64U
+#define SMK_CMDLINE_LENGTH		256U
+#define SMK_ENVNAME_LENGTH		1024U
+
+
+#define	SMK_MAX_PID				65536U
+
+#endif
+

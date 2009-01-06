@@ -1,3 +1,4 @@
+# The mail make file
 all:
 	make SOURCE_ROOT=$$PWD -C userlandinit
 	make SOURCE_ROOT=$$PWD -C libsmk

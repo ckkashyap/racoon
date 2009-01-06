@@ -1,0 +1,13 @@
+
+
+all debug install uninstall clean realclean:
+	if [ "$(SUBS)" != "" ]; then		\
+		for subdir in $(SUBS); do		\
+			$(MAKE) -C $$subdir $@;		\
+			if [ "$$?" != "0" ]; then exit -1; fi;	\
+		done;	\
+	fi;
+
+
+
+

@@ -1,0 +1,4 @@
+include $(BASEDIR)/glue/make.system
+INCLUDES	= -I. -I$(INCLUDEROOT)/ 
+LDFLAGS     = --script=$(BASEDIR)/glue/ldscript.core
+include $(BASEDIR)/glue/make.base

@@ -1,0 +1,35 @@
+BUILD=$(BASEDIR)/BUILD
+BUILD=/spoon/
+
+
+SYSTEMROOT=$(BUILD)/system
+
+APPROOT=$(BUILD)/system/applications
+INCLUDEROOT=$(BUILD)/system/include
+LIBRARYROOT=$(BUILD)/system/lib
+DRIVERROOT=$(BUILD)/system/drivers
+
+
+
+UNAME	= $(shell uname -s)
+
+ifeq ($(UNAME),Linux)
+
+AR		= ar -rc
+CP		= cp -f
+CC		= gcc
+CXX		= g++
+FIND	= find
+GREP	= grep
+INSTALL	= install -p -D
+LD		= ld
+MAKE	= make
+RM		= rm -f
+RMDIR	= rmdir
+SED		= sed
+TAR		= tar
+
+endif
+
+
+

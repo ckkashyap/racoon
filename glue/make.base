@@ -1,0 +1,67 @@
+
+LIBRARIES 	= -L$(LIBRARYROOT)
+
+
+CFLAGS	= -fno-builtin -nostdinc -Wall -O0 -DNDEBUG 
+CXXFLAGS= -fno-builtin -nostdinc -nostdinc++ -Wall -O0 -DNDEBUG 
+
+CDEBUGFLAGS		= -fPIC -fno-builtin -nostdinc -Wall -g -fno-inline
+CXXDEBUGFLAGS	= -fPIC -fno-builtin -nostdinc -nostdinc++ -Wall -g -fno-inline
+
+
+
+#------ Build rules
+
+all: $(TARGET) 
+
+
+debug: CFLAGS = $(CDEBUGFLAGS)
+debug: CXXFLAGS = $(CXXDEBUGFLAGS)
+debug: all
+
+
+clean:
+	$(RM) $(OBJS) 
+	$(RM) `$(FIND) -name "*[.]d"`
+	$(RM) `$(FIND) -name "*[.]d[.]*"`
+	$(RM) `$(FIND) -name "*~"`
+
+
+realclean: clean
+	$(RM) $(TARGET)
+
+
+install: $(TARGET)
+	if [ "$(INSTALLPATH)" != "" ]; then $(INSTALL) $(TARGET) $(INSTALLPATH)/$(TARGET); fi;
+
+
+uninstall: 
+	if [ "$(INSTALLPATH)" != "" ]; then $(RM) $(INSTALLPATH)/$(TARGET); fi;
+
+
+
+$(TARGET): $(OBJS)
+	$(LD) $(OBJS) $(LIBRARIES) $(LDFLAGS) -o $(TARGET);
+
+
+
+#------ Pattern rules
+
+%.o: %.c
+	$(CC) $(INCLUDES) -c $(CFLAGS) -o $@ $<
+
+%.o: %.cpp
+	$(CXX) $(INCLUDES) -c $(CXXFLAGS) -o $@ $<
+
+%.o: %.S
+	$(CC) $(INCLUDES) -c $(CFLAGS) -o $@ $<
+
+%.d: %.c
+	@set -e; $(RM) $@; \
+	$(CC) -MM $(INCLUDES) $(CFLAGS) $< > $@.$$$$; \
+	$(SED) 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
+	$(RM) $@.$$$$
+
+-include $(OBJS:.o=.d)
+
+

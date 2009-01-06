@@ -1,0 +1,81 @@
+include $(BASEDIR)/glue/make.system
+
+
+INCLUDES	= -I. -I$(INCLUDEROOT)/
+LIBRARIES 	= -L$(LIBRARYROOT)
+
+
+CFLAGS	= -fPIC -fno-builtin -nostdinc -Wall -DNDEBUG 
+CXXFLAGS= -fPIC -fno-builtin -nostdinc -nostdinc++ -Wall -DNDEBUG 
+
+CDEBUGFLAGS		= -fPIC -fno-builtin -nostdinc -Wall -g -fno-inline
+CXXDEBUGFLAGS	= -fPIC -fno-builtin -nostdinc -nostdinc++ -Wall -g -fno-inline
+
+
+#-------- Targets 
+
+all: install
+
+
+debug: CFLAGS = $(CDEBUGFLAGS)
+debug: CXXFLAGS = $(CXXDEBUGFLAGS)
+debug: install
+	
+
+
+$(STATIC_TARGET):  $(OBJS)
+	$(AR) $(STATIC_TARGET)  $(OBJS)
+
+$(SHARED_TARGET):  $(OBJS)
+	$(LD) -shared -o $(SHARED_TARGET)  $(OBJS)
+
+
+
+
+clean:
+	$(RM) $(OBJS) 
+	$(RM) `$(FIND) -name "*[.]d"`
+	$(RM) `$(FIND) -name "*[.]d[.]*"`
+	$(RM) `$(FIND) -name "*~"`
+
+
+realclean: clean
+	$(RM) $(SHARED_TARGET) $(STATIC_TARGET)
+
+
+install: $(STATIC_TARGET) $(SHARED_TARGET)
+	for file in $(HDRS); do 		\
+		if [ ! -f $$file ]; then echo "$$file not found."; exit -1; fi;	\
+		$(INSTALL) $$file $(INCLUDEROOT)/$$file;	\
+	done;
+	if [ "$(STATIC_TARGET)" != "" ]; then $(INSTALL) $(STATIC_TARGET) $(LIBRARYROOT)/$(STATIC_TARGET); fi;
+	if [ "$(SHARED_TARGET)" != "" ]; then $(INSTALL) $(SHARED_TARGET) $(LIBRARYROOT)/$(SHARED_TARGET); fi;
+
+
+uninstall:
+	for file in $(HDRS); do 			\
+		$(RM) $(INCLUDEROOT)/$$file;	\
+	done;
+	if [ "$(STATIC_TARGET)" != "" ]; then $(RM) $(LIBRARYROOT)/$(STATIC_TARGET); fi;
+	if [ "$(SHARED_TARGET)" != "" ]; then $(RM) $(LIBRARYROOT)/$(SHARED_TARGET); fi;
+
+
+#------ Pattern rules
+
+%.o: %.c
+	$(CC) $(INCLUDES) -c $(CFLAGS) -o $@ $<
+
+%.o: %.cpp
+	$(CXX) $(INCLUDES) -c $(CXXFLAGS) -o $@ $<
+
+%.o: %.S
+	$(CC) $(INCLUDES) -c $(CFLAGS) -o $@ $<
+
+%.d: %.c
+	@set -e; $(RM) $@; \
+	$(CC) -MM $(INCLUDES) $(CFLAGS) $< > $@.$$$$; \
+	$(SED) 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
+	$(RM) $@.$$$$
+
+-include $(OBJS:.o=.d)
+

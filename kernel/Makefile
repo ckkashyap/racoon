@@ -1,4 +1,4 @@
-BASEDIR=../../
+BASEDIR=..
 include $(BASEDIR)/glue/make.system
 
 KERNEL_VERSION=snapshot

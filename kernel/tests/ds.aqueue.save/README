@@ -1,0 +1,7 @@
+
+
+Tests the aqueue to confirm:
+
+1.	saving without calling new shouldn't core dump on next next
+
+

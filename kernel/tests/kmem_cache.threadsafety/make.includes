@@ -1,0 +1,16 @@
+
+
+
+NAME=kmem_cache.threadsafety
+FILES=*.c
+ADD_FILES=../../arb/kmem_cache.c
+
+
+INCLUDES=-I../base.atomic
+
+
+LIBS+= -lpthread
+
+
+
+

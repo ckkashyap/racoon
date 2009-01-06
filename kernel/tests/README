@@ -1,0 +1,39 @@
+
+
+This is a unit test enviroment which is supposed to plain and simple.
+
+The point of the environment is to test components 
+of the system which are considered base objects and
+are required to be reliable and bug-free.
+
+
+Rules when adding tests:
+------------------------
+
+1.  Each test must have MINIMAL reliance on other components. 
+    IE: preferably none.
+
+2.  A large component which relies on separate components should not be tested.
+
+3.  They must compile and run under a unix/linux/posix compatible environment.
+
+4.  For base components which are better simulated by the testing environment,
+    (for example atomic locks and malloc/free operations), a base component 
+	should be added to test the simulation.
+
+5.  For every bug discovered in a base component, an appropriate test
+    should be written to prevent the bug from re-occuring over time.
+
+
+
+Compilation Flags:
+------------------
+
+
+1.  The _TEST_ define is exported in the compilation.  Check for this
+    in the proper kernel components IF AND ONLY IF the kernel component
+	needs to behave SLIGHTY differently during a test than runtime.
+
+2.  Ideally, _TEST_ define checks should only surround include commands
+
+

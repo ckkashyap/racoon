@@ -1,0 +1,9 @@
+
+
+Tests the aqueue to confirm:
+
+1.	Consistency between the objects put into the queue and reported amount 
+2.  Correct number of objects coming off.
+3.  NULL returns on empty queues
+
+

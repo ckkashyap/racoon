@@ -1,0 +1,14 @@
+
+acpi !available * x
+
+  start -> end
+
+kernel
+
+  start -> end
+
+modules * x
+
+  start -> end
+
+

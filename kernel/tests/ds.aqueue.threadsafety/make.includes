@@ -1,0 +1,13 @@
+
+
+
+NAME=ds.aqueue.threadsafety
+FILES=*.c
+ADD_FILES=../../ds/aqueue.c
+
+
+INCLUDES=-I../base.alloc
+INCLUDES+=-I../base.atomic
+
+LIBS+= -lpthread
+

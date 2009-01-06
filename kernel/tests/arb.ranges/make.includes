@@ -1,0 +1,12 @@
+
+
+
+NAME=arb.ranges
+FILES=*.c
+ADD_FILES=../../arb/arb.c
+
+
+
+
+INCLUDES=-I../base.atomic
+

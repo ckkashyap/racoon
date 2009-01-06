@@ -1,0 +1,8 @@
+
+
+Tests the kmem_cache to confirm:
+
+1. All objects allocated by the kmem_cache structure are constructed.
+2. All objects deconstructed by the kmem_cache structure were constructed previously.
+
+

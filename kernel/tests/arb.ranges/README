@@ -1,0 +1,8 @@
+
+
+Tests the resource allocator to confirm:
+
+1. The number of ranges added is maintained and recorded correctly	
+2. The ranges added are returned in sequence
+
+

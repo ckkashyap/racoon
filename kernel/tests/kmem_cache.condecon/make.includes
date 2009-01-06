@@ -1,0 +1,13 @@
+
+
+
+NAME=kmem_cache.condecon
+FILES=*.c
+ADD_FILES=../../arb/kmem_cache.c
+
+
+INCLUDES=-I../base.atomic
+
+
+
+

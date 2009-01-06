@@ -1,4 +1,4 @@
-BASEDIR=../
+BASEDIR=$(SOURCE_ROOT)
 
 
 STATIC_TARGET=libsmk.a

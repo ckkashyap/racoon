@@ -1,5 +1,5 @@
 BUILD=$(BASEDIR)/BUILD
-BUILD=/spoon/
+BUILD=~/spoon/
 
 
 SYSTEMROOT=$(BUILD)/system
